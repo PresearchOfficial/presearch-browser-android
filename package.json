@@ -245,7 +245,8 @@
         "dir": "src/presearch",
         "repository": {
           "url": "https://github.com/PresearchOfficial/presearch-browser-core.git"
-        }
+        },
+	"tag": "v1.39.122"
       }
     }
   },
