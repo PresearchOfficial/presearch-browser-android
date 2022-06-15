@@ -242,7 +242,7 @@
   "config": {
     "projects": {
       "presearch-core": {
-        "dir": "src/presearch",
+        "dir": "src/brave",
         "repository": {
           "url": "https://github.com/PresearchOfficial/presearch-browser-core.git"
         },

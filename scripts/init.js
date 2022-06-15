@@ -11,7 +11,7 @@ const util = require('../lib/util')
 
 Log.progress('Performing initial checkout of presearch-core')
 
-const braveCoreDir = path.resolve(__dirname, '..', 'src', 'presearch')
+const braveCoreDir = path.resolve(__dirname, '..', 'src', 'brave')
 const braveCoreRef = util.getProjectVersion('presearch-core')
 
 if (!fs.existsSync(path.join(braveCoreDir, '.git'))) {
