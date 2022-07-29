@@ -31,20 +31,22 @@ Please see the [contributing guidelines](./CONTRIBUTING.md).
 
 Follow [@presearch](https://twitter.com/TeamPresearch) on Twitter for important news and announcements.
 
-## Install prerequisites
+## Build for Android
+### System Requirements
 
-Follow the instructions for your platform:
+Before you begin, ensure your system satisfies the [system requirements](https://chromium.googlesource.com/chromium/src/+/master/docs/linux/build_instructions.md#system-requirements).
+The Android build can only be made on Linux machine. The process described in this instruction uses Ubuntu 20.
 
-- [macOS](https://github.com/brave/brave-browser/wiki/macOS-Development-Environment)
-- [Windows](https://github.com/brave/brave-browser/wiki/Windows-Development-Environment)
-- [Linux/Android](https://github.com/brave/brave-browser/wiki/Linux-Development-Environment)
+### Setup build environment for Android
 
-## Clone and initialize the repo
+You will need `Git`, `Python 3`, the `Node.js` active LTS (v16+), and `npm` (v8+ but < 8.6). You may need to make `python3` the default if `Python 2.7` is default for your OS. Also, if you don't have anything named python on your machine and only have `python3`, you will need something like `python-is-python3`.
+
+### Clone and initialize the repo
 
 Once you have the prerequisites installed, you can get the code and initialize the build environment.
 
 ```bash
-git clone git@github.com:PresearchOfficial/presearch-browser-android.git
+git clone https://github.com/PresearchOfficial/presearch-browser-android.git
 cd presearch-browser-android
 npm install
 
@@ -53,13 +55,23 @@ npm install
 
 npm run init
 ```
+
+After `npm run init` is finished, there is one final step to finish installing build dependencies. This shell script only works on Debian and Ubuntu but check [system requirements](https://github.com/chromium/chromium/blob/master/docs/linux/build_instructions.md#system-requirements) for other distros:
+
+```bash
+# Run this cli into the presearch-browser-android folder
+./src/build/install-build-deps-android.sh
+```
+### Making debug build for Android
+
 presearch-browser-core based android builds should use `npm run init -- --target_os=android --target_arch=arm` (or whichever CPU type you want to build for)
 
-You can also set the target_os and target_arch for init and build using:
+Or set the target_os and target_arch for init and build using:
 
 ```
 npm config set target_os android
-npm config set target_arch arm
+npm config set target_arch arm # For 32 bits ARM
+npm config set target_arch arm64 # For 64 bits ARM
 ```
 
 ## Build Presearch
@@ -69,40 +81,4 @@ The default build type is component.
 # start the component build compile
 npm run build
 ```
-
-To do a release build:
-
 ```
-# start the release compile
-npm run build Release
-```
-
-presearch-browser-core based android builds should use `npm run build -- --target_os=android --target_arch=arm` or set the npm config variables as specified above for `init`
-
-### Build Configurations
-
-Running a release build with `npm run build Release` can be very slow and use a lot of RAM, especially on Linux with the Gold LLVM plugin.
-
-To run a statically linked build (takes longer to build, but starts faster):
-
-```bash
-npm run build -- Static
-```
-
-To run a debug build (Component build with is_debug=true):
-
-```bash
-npm run build -- Debug
-```
-
-## Run Presearch
-To start the build:
-
-`npm start [Release|Component|Static|Debug]`
-
-# Enabling third-party APIs:
-
-1. **Google Safe Browsing**: Get an API key with SafeBrowsing API enabled from https://console.developers.google.com/. Update the `GOOGLE_API_KEY` environment variable with your key as per https://www.chromium.org/developers/how-tos/api-keys to enable Google SafeBrowsing.
-
-# Development
-- Security rules: https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/security/rules.md
